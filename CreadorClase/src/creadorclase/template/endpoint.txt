@@ -1,0 +1,114 @@
+package com.aw.api.resources.endpoint;
+
+import Soporte.Mensajes.Mensaje;
+import ##paquete##.modelo.##clase##;
+import com.aw.api.resources.filters.Secured;
+import ##paquete##.servicio.definicion.IServicio##clase##;
+import ##paquete##.servicio.validacion.definicion.IValidacion##clase##;
+import ##paquete##.servicio.validacion.impl.MensajeValidacion;
+import java.util.ArrayList;
+import java.util.List;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
+import model.DTO##clase##;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+/**
+ *
+ * @author angelo
+ */
+@Path("##clase##")
+public class ##clase##Resource {
+
+    private static final Logger LOG = Logger.getLogger(##clase##Resource.class);
+
+    @Autowired
+    private IValidacion##clase## validacion##clase##;
+    @Autowired
+    private IServicio##clase## servicio##clase##;
+    @Autowired
+    private Mensaje mensaje;
+
+    @Context
+    SecurityContext securityContext;
+
+    @GET
+//    @Secured
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTodos##clase##s() throws Exception {
+        LOG.info("Buscando todos los ##clase##s.");
+//        Principal p = securityContext.getUserPrincipal();
+//        System.out.println("Token del ##clase## que realiza el request: " + p.getName());
+        List<DTO##clase##> lista = new ArrayList<>();
+        servicio##clase##.getTodos().stream().forEach((##clase##) -> {
+            lista.add(new DTO##clase##(##clase##));
+        });
+        return Response.ok(new Respuesta(lista)).build();
+    }
+
+    @GET
+    @Path("/{id}")
+//    @Secured
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response get##clase##ById(@PathParam("id") Integer id) throws Exception {
+        LOG.info("Buscando ##clase## id " + id);
+        return Response.ok(new Respuesta(new DTO##clase##(servicio##clase##.get(id)))).build();
+    }
+
+    @POST
+//    @Secured
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response add##clase##(DTO##clase## objeto) throws Exception {
+        LOG.info("Insertando ##clase##.");
+        ##clase## u = new ##clase##();
+        List<MensajeValidacion> errores = validacion##clase##.validarAlta(u);
+        if (!errores.isEmpty()) {
+            return Response.ok(new Respuesta(Respuesta.VALIDACION, errores)).build();
+        }
+        servicio##clase##.insertar(u);
+        return Response.ok(new Respuesta(mensaje.getAgregado(mensaje.##clase##))).build();
+    }
+
+    @PUT
+//    @Secured
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response update##clase##(DTO##clase## objeto) throws Exception {
+        LOG.info("Actualizando ##clase##.");
+        ##clase## u = new ##clase##();
+        List<MensajeValidacion> errores = validacion##clase##.validarActualizacion(u);
+        if (!errores.isEmpty()) {
+            return Response.ok(new Respuesta(Respuesta.VALIDACION, errores)).build();
+        }
+        servicio##clase##.actualizar(u);
+        return Response.ok(new Respuesta(new Respuesta(mensaje.getModificado(mensaje.##clase##)))).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+//    @Secured
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response delete##clase##(@PathParam("id") Integer id) throws Exception {
+        LOG.info("Eliminando ##clase## id " + id);
+        List<MensajeValidacion> errores = validacion##clase##.validarEliminacion(id);
+        if (!errores.isEmpty()) {
+            return Response.ok(new Respuesta(Respuesta.VALIDACION, errores)).build();
+        }
+        servicio##clase##.eliminar(new ##clase##(id));
+        return Response.ok(new Respuesta(mensaje.getEliminado(mensaje.##clase##))).build();
+    }
+
+}

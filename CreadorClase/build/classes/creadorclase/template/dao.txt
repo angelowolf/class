@@ -1,0 +1,32 @@
+package ##paquete##.orm.impl;
+
+import ##paquete##.modelo.##clase##;
+import ##paquete##.orm.definicion.IDAO##clase##;
+import ##paquete##.orm.util.GenericDAO;
+import java.util.List;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
+
+/**
+ *
+ * @author Angelo Wolf angelowolf21@gmail.com
+ */
+@Repository
+public class DAO##clase##Impl extends GenericDAO<##clase##, Integer> implements IDAO##clase## {
+
+    @Override
+    public List<##clase##> getTodos(String... falseLazy) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(##clase##.class);
+        criteria = generarFalseLazy(criteria, falseLazy);
+        return criteria.list();
+    }
+
+    @Override
+    public ##clase## getById(Integer id, String... falseLazy) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(##clase##.class);
+        criteria = generarFalseLazy(criteria, falseLazy);
+        criteria.add(Restrictions.eq("id", id));
+        return (##clase##) criteria.uniqueResult();
+    }
+}

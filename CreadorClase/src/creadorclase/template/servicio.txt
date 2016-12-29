@@ -1,0 +1,51 @@
+package ##paquete##.servicio.impl;
+
+import ##paquete##.modelo.##clase##;
+import ##paquete##.orm.definicion.IDAO##clase##;
+import ##paquete##.servicio.definicion.IServicio##clase##;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ *
+ * @author Angelo Wolf angelowolf21@gmail.com
+ */
+@Service
+public class Servicio##clase##Impl implements IServicio##clase## {
+
+    @Autowired
+    private IDAO##clase## dao;
+
+    @Override
+    @Transactional
+    public ##clase## get(Integer id, String... falseLazy) throws Exception {
+        return dao.getById(id, falseLazy);
+    }
+
+    @Override
+    @Transactional
+    public Integer insertar(##clase## u) throws Exception {
+        return dao.guardar(u);
+    }
+
+    @Override
+    @Transactional
+    public void actualizar(##clase## u) throws Exception {
+        dao.actualizar(u);
+    }
+
+    @Override
+    @Transactional
+    public void eliminar(##clase## u) throws Exception {
+        dao.eliminar(u);
+    }
+
+    @Override
+    @Transactional
+    public List<##clase##> getTodos(String... falseLazy) throws Exception {
+        return dao.getTodos(falseLazy);
+    }
+
+}

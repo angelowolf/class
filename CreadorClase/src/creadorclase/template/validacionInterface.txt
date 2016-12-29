@@ -1,0 +1,44 @@
+package ##paquete##.servicio.validacion.definicion;
+
+import ##paquete##.modelo.##clase##;
+import ##paquete##.servicio.definicion.IServicio##clase##;
+import ##paquete##.servicio.validacion.impl.MensajeValidacion;
+import java.util.List;
+
+/**
+ *
+ * Metodos de validacion para poder ingresar / modificar datos en la BD. Si
+ * existen errores de validacion cada metodo devolvera una lista con ellos, sino
+ * estara vacia.
+ *
+ * @author Angelo Wolf angelowolf21@gmail.com
+ */
+public interface IValidacion##clase## {
+
+    void setServicio(IServicio##clase## servicio);
+
+    /**
+     * Verifica si los datos ingresados cumplen los requisitos.
+     *
+     * @param u
+     * @return Empty si lo cumple.
+     */
+    List<MensajeValidacion> validarActualizacion(##clase## u);
+
+    /**
+     * Verifica si los datos ingresados cumplen los requisitos.
+     *
+     * @param u
+     * @return Empty si lo cumple.
+     */
+    List<MensajeValidacion> validarAlta(##clase## u);
+
+    /**
+     * Verifica si es posible de eliminar.
+     *
+     * @param id ##clase##.
+     * @return Empty si se puede.
+     */
+    List<MensajeValidacion> validarEliminacion(Integer id);
+
+}

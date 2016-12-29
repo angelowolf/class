@@ -1,0 +1,55 @@
+package ##paquete##.servicio.validacion.impl;
+
+import ##paquete##.servicio.validacion.definicion.MensajeSoporte;
+import ##paquete##.servicio.validacion.definicion.IValidacion##clase##;
+import ##paquete##.modelo.##clase##;
+import ##paquete##.servicio.definicion.IServicio##clase##;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class Validacion##clase##Impl implements MensajeSoporte, IValidacion##clase## {
+
+    @Autowired
+    private IServicio##clase## servicio;
+
+    private List<MensajeValidacion> validar(##clase## u) {
+        List<MensajeValidacion> errores = new ArrayList<>();
+      
+        if (StringUtils.isBlank(u.getNombre())) {
+            errores.add(new MensajeValidacion("nombre", MENSAJES.OBLIGATORIO));
+        }
+        
+        return errores;
+    }
+
+    @Override
+    public List<MensajeValidacion> validarAlta(##clase## u) {
+        List<MensajeValidacion> errores = this.validar(u);
+        
+        return errores;
+    }
+
+    @Override
+    public List<MensajeValidacion> validarActualizacion(##clase## u) {
+        List<MensajeValidacion> errores = this.validar(u);
+    
+        return errores;
+    }
+
+    @Override
+    public List<MensajeValidacion> validarEliminacion(Integer id) {
+        List<MensajeValidacion> errores = new ArrayList<>();
+        return errores;
+    }
+
+    @Override
+    public void setServicio(IServicio##clase## servicio) {
+        this.servicio = servicio;
+    }
+
+}

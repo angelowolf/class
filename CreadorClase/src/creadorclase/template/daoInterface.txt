@@ -1,0 +1,17 @@
+package ##paquete##.orm.definicion;
+
+import ##paquete##.modelo.##clase##;
+import ##paquete##.orm.util.IGenericDAO;
+import java.util.List;
+
+/**
+ *
+ * @author Angelo Wolf angelowolf21@gmail.com
+ */
+public interface IDAO##clase## extends IGenericDAO<##clase##, Integer> {
+
+    public List<##clase##> getTodos(String... falseLazy);
+
+    public ##clase## getById(Integer id, String... falseLazy);
+}
+

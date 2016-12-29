@@ -1,0 +1,22 @@
+package ##paquete##.servicio.definicion;
+
+import ##paquete##.modelo.##clase##;
+import java.util.List;
+
+/**
+ *
+ * @author Angelo Wolf angelowolf21@gmail.com
+ */
+public interface IServicio##clase## {
+
+    public ##clase## get(Integer id, String... falseLazy) throws Exception;
+
+    public Integer insertar(##clase## u) throws Exception;
+
+    public void actualizar(##clase## u) throws Exception;
+
+    public void eliminar(##clase## u) throws Exception;
+
+    public List<##clase##> getTodos(String... falseLazy) throws Exception;
+
+}
